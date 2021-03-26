@@ -499,6 +499,11 @@ public:
         return S_OK;
     }
 
+    virtual void ChildrenChanged() override
+    {
+        NSAccessibilityPostNotification(Window, NSAccessibilityLayoutChangedNotification);
+    }
+
 protected:
     virtual NSWindowStyleMask GetStyle()
     {
