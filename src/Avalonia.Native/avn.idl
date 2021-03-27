@@ -813,6 +813,7 @@ interface IAvnAutomationPeer : IUnknown
      IAvnAutomationPeer* GetRootPeer();
      
      bool IsRootProvider();
+     IAvnAutomationPeer* RootProvider_GetFocus();
      IAvnAutomationPeer* RootProvider_GetPeerFromPoint(AvnPoint point);
      
      bool IsInvokeProvider();
@@ -845,4 +846,5 @@ interface IAvnAutomationNode : IUnknown
 {
     void ChildrenChanged();
     void PropertyChanged(AvnAutomationProperty property);
+    void FocusChanged(IAvnAutomationPeer* peer);
 }
