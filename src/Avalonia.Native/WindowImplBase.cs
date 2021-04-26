@@ -104,6 +104,8 @@ namespace Avalonia.Native
             }
         }
 
+        public Size TotalSize => ClientSize;
+
         public IEnumerable<object> Surfaces => new[] {
             (_gpu ? _glSurface : (object)null),
             this 

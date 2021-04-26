@@ -197,6 +197,8 @@ namespace Avalonia.Controls
             protected set { SetAndRaise(ClientSizeProperty, ref _clientSize, value); }
         }
 
+        public Size TotalSize => ClientSize;
+
         /// <summary>
         /// Gets or sets the <see cref="WindowTransparencyLevel"/> that the TopLevel should use when possible.
         /// </summary>

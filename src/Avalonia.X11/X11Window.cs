@@ -297,6 +297,8 @@ namespace Avalonia.X11
 
         public Size ClientSize => new Size(_realSize.Width / RenderScaling, _realSize.Height / RenderScaling);
 
+        public Size TotalSize => ClientSize;
+
         public double RenderScaling
         {
             get
