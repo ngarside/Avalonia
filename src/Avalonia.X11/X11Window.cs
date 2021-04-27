@@ -311,10 +311,24 @@ namespace Avalonia.X11
                 var ptr = (IntPtr*)prop.ToPointer();
                 var newAtoms = new List<int>();
                 var itemCount = nitems.ToInt64();
+
+                if (itemCount == 0)
+                {
+                    return ClientSize;
+                }
+                
                 for (var c = 0; c < itemCount; c++) 
                     newAtoms.Add(ptr[c].ToInt32());
+                
+                var extents = new XFrameExtents
+                {
+                    Left = newAtoms[0],
+                    Right = newAtoms[1],
+                    Top = newAtoms[2],
+                    Bottom = newAtoms[3],
+                };
 
-                var str = System.Runtime.InteropServices.Marshal.PtrToStructure(prop, typeof(XRectangle));
+                var str = System.Runtime.InteropServices.Marshal.PtrToStructure(prop, typeof(XFrameExtents));
                 XFree(prop);
 
                 return ClientSize;
