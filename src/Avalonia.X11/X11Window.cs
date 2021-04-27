@@ -328,10 +328,16 @@ namespace Avalonia.X11
                     Bottom = newAtoms[3],
                 };
 
+                var thickness = new Thickness(extents.Left, extents.Top, extents.Right, extents.Bottom);
+
                 var str = System.Runtime.InteropServices.Marshal.PtrToStructure(prop, typeof(XFrameExtents));
                 XFree(prop);
+                
+                return new Size(
+                    (_realSize.Width + extents.Left + extents.Right) / RenderScaling,
+                    (_realSize.Height + extents.Top + extents.Bottom) / RenderScaling);
 
-                return ClientSize;
+                // return ClientSize + thickness;
             }
         }
 
