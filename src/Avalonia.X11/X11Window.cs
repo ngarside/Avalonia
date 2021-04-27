@@ -301,15 +301,13 @@ namespace Avalonia.X11
         {
             get
             {
-                
                 XGetWindowProperty(_x11.Display, _handle, _x11.Atoms._NET_FRAME_EXTENTS, IntPtr.Zero,
                     new IntPtr(4), false, (IntPtr)Atom.AnyPropertyType, out var _,
                     out var _, out var nitems, out var _, out var prop);
 
-                var itemCount = nitems.ToInt64();
-                if (itemCount == 0)
+                if (nitems.ToInt64() != 4)
                 {
-                    // Window hasn't been created yet, so can't get the extents.
+                    // Window hasn't been mapped by the WM yet, so can't get the extents.
                     return ClientSize;
                 }
 
