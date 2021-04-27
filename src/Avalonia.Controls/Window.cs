@@ -831,6 +831,10 @@ namespace Avalonia.Controls
             var screen = Screens.ScreenFromPoint(owner?.Position ?? Position);
             var margin = Margin * scaling;
 
+            var hi1 = PlatformImpl.ClientSize;
+            var hi2 = PlatformImpl.TotalSize;
+            var hi3 = base.ClientSize;
+
             switch (WindowStartupLocation)
             {
                 case WindowStartupLocation.CenterScreen:

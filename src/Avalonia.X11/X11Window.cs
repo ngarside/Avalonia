@@ -297,7 +297,29 @@ namespace Avalonia.X11
 
         public Size ClientSize => new Size(_realSize.Width / RenderScaling, _realSize.Height / RenderScaling);
 
-        public Size TotalSize => ClientSize;
+        public Size TotalSize
+        {
+            get
+            {
+                
+                int result = XGetWindowProperty(_x11.Display, _handle, _x11.Atoms._NET_FRAME_EXTENTS, IntPtr.Zero, new IntPtr(4),
+                    false, (IntPtr)Atom.AnyPropertyType, out var actualType, out var actualFormat, out var nitems,
+                    out var bytesAfter, out var prop);
+
+                System.Threading.Thread.Sleep(100);
+                
+                var ptr = (IntPtr*)prop.ToPointer();
+                var newAtoms = new List<int>();
+                var itemCount = nitems.ToInt64();
+                for (var c = 0; c < itemCount; c++) 
+                    newAtoms.Add(ptr[c].ToInt32());
+
+                var str = System.Runtime.InteropServices.Marshal.PtrToStructure(prop, typeof(XRectangle));
+                XFree(prop);
+
+                return ClientSize;
+            }
+        }
 
         public double RenderScaling
         {
