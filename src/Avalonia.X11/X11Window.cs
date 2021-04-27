@@ -302,42 +302,24 @@ namespace Avalonia.X11
             get
             {
                 
-                int result = XGetWindowProperty(_x11.Display, _handle, _x11.Atoms._NET_FRAME_EXTENTS, IntPtr.Zero, new IntPtr(4),
-                    false, (IntPtr)Atom.AnyPropertyType, out var actualType, out var actualFormat, out var nitems,
-                    out var bytesAfter, out var prop);
+                XGetWindowProperty(_x11.Display, _handle, _x11.Atoms._NET_FRAME_EXTENTS, IntPtr.Zero,
+                    new IntPtr(4), false, (IntPtr)Atom.AnyPropertyType, out var _,
+                    out var _, out var nitems, out var _, out var prop);
 
-                System.Threading.Thread.Sleep(100);
-                
-                var ptr = (IntPtr*)prop.ToPointer();
-                var newAtoms = new List<int>();
                 var itemCount = nitems.ToInt64();
-
                 if (itemCount == 0)
                 {
+                    // Window hasn't been created yet, so can't get the extents.
                     return ClientSize;
                 }
-                
-                for (var c = 0; c < itemCount; c++) 
-                    newAtoms.Add(ptr[c].ToInt32());
-                
-                var extents = new XFrameExtents
-                {
-                    Left = newAtoms[0],
-                    Right = newAtoms[1],
-                    Top = newAtoms[2],
-                    Bottom = newAtoms[3],
-                };
 
-                var thickness = new Thickness(extents.Left, extents.Top, extents.Right, extents.Bottom);
-
-                var str = System.Runtime.InteropServices.Marshal.PtrToStructure(prop, typeof(XFrameExtents));
+                var data = (IntPtr*)prop.ToPointer();
+                var extents = new Thickness(data[0].ToInt32(), data[2].ToInt32(), data[1].ToInt32(), data[3].ToInt32());
                 XFree(prop);
                 
                 return new Size(
                     (_realSize.Width + extents.Left + extents.Right) / RenderScaling,
                     (_realSize.Height + extents.Top + extents.Bottom) / RenderScaling);
-
-                // return ClientSize + thickness;
             }
         }
 
