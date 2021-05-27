@@ -13,4 +13,4 @@ InterfacesShouldHaveSameMembers : Interface member 'public void Avalonia.Platfor
 MembersMustExist : Member 'public void Avalonia.Platform.ITopLevelImpl.SetCursor(Avalonia.Platform.IPlatformHandle)' does not exist in the implementation but it does exist in the contract.
 InterfacesShouldHaveSameMembers : Interface member 'public Avalonia.Size Avalonia.Platform.ITopLevelImpl.TotalSize' is present in the implementation but not in the contract.
 InterfacesShouldHaveSameMembers : Interface member 'public Avalonia.Size Avalonia.Platform.ITopLevelImpl.TotalSize.get()' is present in the implementation but not in the contract.
-Total Issues: 7
+Total Issues: 14
