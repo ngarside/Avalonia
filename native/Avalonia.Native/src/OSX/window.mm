@@ -209,9 +209,10 @@ public:
             if(ret == nullptr)
                 return E_POINTER;
             
-            auto frame = [Window frame];
-            ret->Width = frame.size.width;
-            ret->Height = frame.size.height;
+            auto frame = [View frame];
+            auto windowFrame = [Window frameRectForContentRect:frame];
+            ret->Width = windowFrame.size.width;
+            ret->Height = windowFrame.size.height;
             
             return S_OK;
         }
