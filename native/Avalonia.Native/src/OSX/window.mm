@@ -202,6 +202,22 @@ public:
         }
     }
     
+    virtual HRESULT GetTotalSize(AvnSize* ret) override
+    {
+        @autoreleasepool
+        {
+            if(ret == nullptr)
+                return E_POINTER;
+            
+            auto frame = [View frame];
+            auto windowFrame = [Window frameRectForContentRect:frame];
+            ret->Width = windowFrame.size.width;
+            ret->Height = windowFrame.size.height;
+            
+            return S_OK;
+        }
+    }
+    
     virtual HRESULT GetScaling (double* ret) override
     {
         @autoreleasepool
