@@ -32,6 +32,15 @@ namespace ControlCatalog
 
             var mainMenu = this.FindControl<Menu>("MainMenu");
             mainMenu.AttachedToVisualTree += MenuAttached;
+            base.Opened += async (sender, args) =>
+            {
+                await System.Threading.Tasks.Task.Delay(2000);
+                Console.WriteLine("#######################");
+                Console.WriteLine("Width: " + ClientSize.Width);
+                Console.WriteLine("Height: " + ClientSize.Height);
+                Console.WriteLine("Width: " + TotalSize.Width);
+                Console.WriteLine("Height: " + TotalSize.Height);
+            };
         }
 
         public static string MenuQuitHeader => RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? "Quit Avalonia" : "E_xit";
