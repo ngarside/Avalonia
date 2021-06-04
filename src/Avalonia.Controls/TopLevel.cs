@@ -41,6 +41,11 @@ namespace Avalonia.Controls
         /// </summary>
         public static readonly DirectProperty<TopLevel, Size> ClientSizeProperty =
             AvaloniaProperty.RegisterDirect<TopLevel, Size>(nameof(ClientSize), o => o.ClientSize);
+        /// <summary>
+        /// Defines the <see cref="TotalSize"/> property.
+        /// </summary>
+        public static readonly DirectProperty<TopLevel, Size> TotalSizeProperty =
+            AvaloniaProperty.RegisterDirect<TopLevel, Size>(nameof(TotalSize), o => o.TotalSize);
 
         /// <summary>
         /// Defines the <see cref="IInputRoot.PointerOverElement"/> property.
@@ -74,6 +79,7 @@ namespace Avalonia.Controls
         private readonly IPlatformRenderInterface _renderInterface;
         private readonly IGlobalStyles _globalStyles;
         private Size _clientSize;
+        private Size _totalSize;
         private WindowTransparencyLevel _actualTransparencyLevel;
         private ILayoutManager _layoutManager;
         private Border _transparencyFallbackBorder;
@@ -84,6 +90,7 @@ namespace Avalonia.Controls
         static TopLevel()
         {
             AffectsMeasure<TopLevel>(ClientSizeProperty);
+            AffectsMeasure<TopLevel>(TotalSizeProperty);
 
             TransparencyLevelHintProperty.Changed.AddClassHandler<TopLevel>(
                 (tl, e) => 
@@ -161,6 +168,7 @@ namespace Avalonia.Controls
             styler?.ApplyStyles(this);
 
             ClientSize = impl.ClientSize;
+            TotalSize = impl.TotalSize;
             
             this.GetObservable(PointerOverElementProperty)
                 .Select(
@@ -197,7 +205,14 @@ namespace Avalonia.Controls
             protected set { SetAndRaise(ClientSizeProperty, ref _clientSize, value); }
         }
 
-        public Size TotalSize => ClientSize;
+        /// <summary>
+        /// Gets or sets the total size of the window.
+        /// </summary>
+        public Size TotalSize
+        {
+            get { return _totalSize; }
+            protected set { SetAndRaise(TotalSizeProperty, ref _totalSize, value); }
+        }
 
         /// <summary>
         /// Gets or sets the <see cref="WindowTransparencyLevel"/> that the TopLevel should use when possible.
