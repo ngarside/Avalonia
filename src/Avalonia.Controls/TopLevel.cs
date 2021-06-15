@@ -41,6 +41,7 @@ namespace Avalonia.Controls
         /// </summary>
         public static readonly DirectProperty<TopLevel, Size> ClientSizeProperty =
             AvaloniaProperty.RegisterDirect<TopLevel, Size>(nameof(ClientSize), o => o.ClientSize);
+
         /// <summary>
         /// Defines the <see cref="TotalSize"/> property.
         /// </summary>
@@ -168,7 +169,6 @@ namespace Avalonia.Controls
             styler?.ApplyStyles(this);
 
             ClientSize = impl.ClientSize;
-            TotalSize = impl.TotalSize;
             
             this.GetObservable(PointerOverElementProperty)
                 .Select(
@@ -202,17 +202,17 @@ namespace Avalonia.Controls
         public Size ClientSize
         {
             get { return _clientSize; }
-            protected set { SetAndRaise(ClientSizeProperty, ref _clientSize, value); }
+            protected set
+            {
+                SetAndRaise(ClientSizeProperty, ref _clientSize, value);
+                RaisePropertyChanged(TotalSizeProperty, _totalSize, PlatformImpl.TotalSize);
+            }
         }
 
         /// <summary>
         /// Gets or sets the total size of the window.
         /// </summary>
-        public Size TotalSize
-        {
-            get { return _totalSize; }
-            protected set { SetAndRaise(TotalSizeProperty, ref _totalSize, value); }
-        }
+        public Size TotalSize => _totalSize;
 
         /// <summary>
         /// Gets or sets the <see cref="WindowTransparencyLevel"/> that the TopLevel should use when possible.
