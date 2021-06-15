@@ -34,6 +34,7 @@ namespace ControlCatalog
             mainMenu.AttachedToVisualTree += MenuAttached;
             Opened += async (sender, args) =>
             {
+                await System.Threading.Tasks.Task.Delay(500);
                 Console.WriteLine("ClientSize: " + ClientSize);
                 Console.WriteLine(" TotalSize: " + TotalSize);
             };
