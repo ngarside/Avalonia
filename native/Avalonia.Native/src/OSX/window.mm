@@ -210,9 +210,8 @@ public:
                 return E_POINTER;
             
             auto frame = [View frame];
-            auto windowFrame = [Window frameRectForContentRect:frame];
-            ret->Width = windowFrame.size.width;
-            ret->Height = windowFrame.size.height;
+            ret->Width = frame.size.width;
+            ret->Height = frame.size.height;
             
             return S_OK;
         }
