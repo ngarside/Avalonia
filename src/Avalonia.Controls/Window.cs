@@ -320,7 +320,7 @@ namespace Avalonia.Controls
         {
             get => GetValue(ExtendClientAreaTitleBarHeightHintProperty);
             set => SetValue(ExtendClientAreaTitleBarHeightHintProperty, value);
-        }            
+        }        
 
         /// <summary>
         /// Gets if the ClientArea is Extended into the Window Decorations.
@@ -329,7 +329,7 @@ namespace Avalonia.Controls
         {
             get => _isExtendedIntoWindowDecorations;
             private set => SetAndRaise(IsExtendedIntoWindowDecorationsProperty, ref _isExtendedIntoWindowDecorations, value);
-        }            
+        }        
 
         /// <summary>
         /// Gets the WindowDecorationMargin.
@@ -339,7 +339,7 @@ namespace Avalonia.Controls
         {
             get => _windowDecorationMargin;
             private set => SetAndRaise(WindowDecorationMarginProperty, ref _windowDecorationMargin, value);
-        }            
+        }        
 
         /// <summary>
         /// Gets the window margin that is hidden off the screen area.
@@ -672,7 +672,7 @@ namespace Avalonia.Controls
                 SetWindowStartupLocation(Owner?.PlatformImpl);
                 
                 PlatformImpl?.Show(ShowActivated);
-                Renderer?.Start();            
+                Renderer?.Start();                
             }
             OnOpened(EventArgs.Empty);
         }
