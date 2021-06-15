@@ -36,7 +36,7 @@ namespace ControlCatalog
             Opened += async (sender, args) =>
             {
                 Debug.WriteLine("ClientSize: " + ClientSize);
-                Debug.WriteLine("TotalSize: " + TotalSize);
+                Debug.WriteLine(" TotalSize: " + TotalSize);
             };
         }
 
