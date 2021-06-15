@@ -205,7 +205,7 @@ namespace Avalonia.Controls
             protected set
             {
                 SetAndRaise(ClientSizeProperty, ref _clientSize, value);
-                RaisePropertyChanged(TotalSizeProperty, _totalSize, PlatformImpl.TotalSize);
+                SetAndRaise(TotalSizeProperty, ref _totalSize, PlatformImpl.TotalSize);
             }
         }
 
