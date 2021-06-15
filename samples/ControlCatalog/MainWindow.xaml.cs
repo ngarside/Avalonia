@@ -40,6 +40,26 @@ namespace ControlCatalog
                 Console.WriteLine("Height: " + ClientSize.Height);
                 Console.WriteLine("Width: " + TotalSize.Width);
                 Console.WriteLine("Height: " + TotalSize.Height);
+                Console.WriteLine("#######################");
+                Console.WriteLine("Width: " + ClientSize.Width);
+                Console.WriteLine("Height: " + ClientSize.Height);
+                Console.WriteLine("Width: " + TotalSize.Width);
+                Console.WriteLine("Height: " + TotalSize.Height);
+                Console.WriteLine("#######################");
+                Console.WriteLine("Width: " + ClientSize.Width);
+                Console.WriteLine("Height: " + ClientSize.Height);
+                Console.WriteLine("Width: " + TotalSize.Width);
+                Console.WriteLine("Height: " + TotalSize.Height);
+                Console.WriteLine("#######################");
+                Console.WriteLine("Width: " + ClientSize.Width);
+                Console.WriteLine("Height: " + ClientSize.Height);
+                Console.WriteLine("Width: " + TotalSize.Width);
+                Console.WriteLine("Height: " + TotalSize.Height);
+                Console.WriteLine("#######################");
+                Console.WriteLine("Width: " + PlatformImpl.ClientSize.Width);
+                Console.WriteLine("Height: " + PlatformImpl.ClientSize.Height);
+                Console.WriteLine("Width: " + PlatformImpl.TotalSize.Width);
+                Console.WriteLine("Height: " + PlatformImpl.TotalSize.Height);
             };
         }
 
