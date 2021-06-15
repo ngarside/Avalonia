@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Controls;
@@ -35,8 +34,8 @@ namespace ControlCatalog
             mainMenu.AttachedToVisualTree += MenuAttached;
             Opened += async (sender, args) =>
             {
-                Debug.WriteLine("ClientSize: " + ClientSize);
-                Debug.WriteLine(" TotalSize: " + TotalSize);
+                Console.WriteLine("ClientSize: " + ClientSize);
+                Console.WriteLine(" TotalSize: " + TotalSize);
             };
         }
 
