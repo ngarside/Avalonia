@@ -209,7 +209,7 @@ public:
             if(ret == nullptr)
                 return E_POINTER;
             
-            auto frame = [View frame];
+            auto frame = [Window frame];
             ret->Width = frame.size.width;
             ret->Height = frame.size.height;
             
