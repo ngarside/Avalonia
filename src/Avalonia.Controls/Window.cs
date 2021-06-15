@@ -243,7 +243,7 @@ namespace Avalonia.Controls
             impl.GotInputWhenDisabled = OnGotInputWhenDisabled;
             impl.WindowStateChanged = HandleWindowStateChanged;
             _maxPlatformClientSize = PlatformImpl?.MaxAutoSizeHint ?? default(Size);
-            impl.ExtendClientAreaToDecorationsChanged = ExtendClientAreaToDecorationsChanged;
+            impl.ExtendClientAreaToDecorationsChanged = ExtendClientAreaToDecorationsChanged;            
             this.GetObservable(ClientSizeProperty).Skip(1).Subscribe(x => PlatformImpl?.Resize(x));
 
             PlatformImpl?.ShowTaskbarIcon(ShowInTaskbar);
@@ -320,7 +320,7 @@ namespace Avalonia.Controls
         {
             get => GetValue(ExtendClientAreaTitleBarHeightHintProperty);
             set => SetValue(ExtendClientAreaTitleBarHeightHintProperty, value);
-        }
+        }            
 
         /// <summary>
         /// Gets if the ClientArea is Extended into the Window Decorations.
@@ -329,7 +329,7 @@ namespace Avalonia.Controls
         {
             get => _isExtendedIntoWindowDecorations;
             private set => SetAndRaise(IsExtendedIntoWindowDecorationsProperty, ref _isExtendedIntoWindowDecorations, value);
-        }
+        }            
 
         /// <summary>
         /// Gets the WindowDecorationMargin.
@@ -339,7 +339,7 @@ namespace Avalonia.Controls
         {
             get => _windowDecorationMargin;
             private set => SetAndRaise(WindowDecorationMarginProperty, ref _windowDecorationMargin, value);
-        }
+        }            
 
         /// <summary>
         /// Gets the window margin that is hidden off the screen area.
@@ -504,7 +504,7 @@ namespace Avalonia.Controls
                 CloseInternal();
                 return false;
             }
-
+            
             return true;
         }
 
@@ -531,7 +531,7 @@ namespace Avalonia.Controls
             {
                 args = new CancelEventArgs();
             }
-
+            
             bool canClose = true;
 
             foreach (var (child, _) in _children.ToList())
@@ -665,14 +665,14 @@ namespace Avalonia.Controls
                 {
                     PlatformImpl?.SetParent(parent.PlatformImpl);
                 }
-
+                
                 Owner = parent;
                 parent?.AddChild(this, false);
-
+                
                 SetWindowStartupLocation(Owner?.PlatformImpl);
-
+                
                 PlatformImpl?.Show(ShowActivated);
-                Renderer?.Start();
+                Renderer?.Start();            
             }
             OnOpened(EventArgs.Empty);
         }
@@ -740,9 +740,9 @@ namespace Avalonia.Controls
                 PlatformImpl?.SetParent(owner.PlatformImpl);
                 Owner = owner;
                 owner.AddChild(this, true);
-
+                
                 SetWindowStartupLocation(owner.PlatformImpl);
-
+                
                 PlatformImpl?.Show(ShowActivated);
 
                 Renderer?.Start();
@@ -767,7 +767,7 @@ namespace Avalonia.Controls
         {
             bool isEnabled = true;
 
-            foreach (var (_, isDialog) in _children)
+            foreach (var (_, isDialog)  in _children)
             {
                 if (isDialog)
                 {
@@ -804,7 +804,7 @@ namespace Avalonia.Controls
         {
             Window firstDialogChild = null;
 
-            foreach (var (child, isDialog) in _children)
+            foreach (var (child, isDialog)  in _children)
             {
                 if (isDialog)
                 {
