@@ -671,7 +671,13 @@ namespace Avalonia.Controls
                 
                 SetWindowStartupLocation(Owner?.PlatformImpl);
                 
+                Size? frameSize = FrameSize;
                 PlatformImpl?.Show(ShowActivated);
+                if (frameSize != FrameSize)
+                {
+                    SetWindowStartupLocation(Owner?.PlatformImpl);
+                }
+
                 Renderer?.Start();                
             }
             OnOpened(EventArgs.Empty);
