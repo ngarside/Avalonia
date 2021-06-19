@@ -443,6 +443,10 @@ namespace Avalonia.Win32
             }
             set
             {
+                if (Win32Platform.WindowsVersion.Major >= 10)
+                {
+                    value = new PixelPoint(value.X - 7, value.Y);
+                }
                 SetWindowPos(
                     Handle.Handle,
                     IntPtr.Zero,
