@@ -23,21 +23,21 @@
         /// <summary>
         /// The startup location is the upper left corner of the screen.
         /// </summary>
-        UpperLeftScreen,
+        TopLeftScreen,
 
         /// <summary>
         /// The startup location is the upper right corner of the screen.
         /// </summary>
-        UpperRightScreen,
+        TopRightScreen,
 
         /// <summary>
         /// The startup location is the lower right corner of the screen.
         /// </summary>
-        LowerRightScreen,
+        BottomRightScreen,
 
         /// <summary>
         /// The startup location is the lower left corner of the screen.
         /// </summary>
-        LowerLeftScreen,
+        BottomLeftScreen,
     }
 }

@@ -850,7 +850,7 @@ namespace Avalonia.Controls
                         Position = ownerRect.CenterRect(rect).Position;
                     }
                     break;
-                case WindowStartupLocation.UpperLeftScreen:
+                case WindowStartupLocation.TopLeftScreen:
                     if (screen != null)
                     {
                         Position = new PixelPoint(
@@ -858,7 +858,7 @@ namespace Avalonia.Controls
                             (int)margin.Top);
                     }
                     break;
-                case WindowStartupLocation.UpperRightScreen:
+                case WindowStartupLocation.TopRightScreen:
                     if (screen != null)
                     {
                         Position = new PixelPoint(
@@ -866,7 +866,7 @@ namespace Avalonia.Controls
                             (int)margin.Top);
                     }
                     break;
-                case WindowStartupLocation.LowerRightScreen:
+                case WindowStartupLocation.BottomRightScreen:
                     if (screen != null)
                     {
                         Position = new PixelPoint(
@@ -874,7 +874,7 @@ namespace Avalonia.Controls
                             screen.WorkingArea.Bottom - rect.Height - (int)margin.Bottom);
                     }
                     break;
-                case WindowStartupLocation.LowerLeftScreen:
+                case WindowStartupLocation.BottomLeftScreen:
                     if (screen != null)
                     {
                         Position = new PixelPoint(

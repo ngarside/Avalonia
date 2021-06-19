@@ -419,11 +419,11 @@ namespace Avalonia.Controls.UnitTests
         }
 
         [Theory]
-        [InlineData(WindowStartupLocation.UpperLeftScreen)]
-        [InlineData(WindowStartupLocation.UpperRightScreen)]
-        [InlineData(WindowStartupLocation.LowerRightScreen)]
-        [InlineData(WindowStartupLocation.LowerLeftScreen)]
-        public void Window_Should_Be_In_Corner_When_WindowStartupLocation_Is_Set(WindowStartupLocation windowStartupLocation)
+        [InlineData(WindowStartupLocation.TopLeftScreen)]
+        [InlineData(WindowStartupLocation.TopRightScreen)]
+        [InlineData(WindowStartupLocation.BottomRightScreen)]
+        [InlineData(WindowStartupLocation.BottomLeftScreen)]
+        public void Window_Should_Be_In_Corner_When_WindowStartupLocation_Is_Set_To_Corner(WindowStartupLocation windowStartupLocation)
         {
             var screen1 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1920, 1080)), new PixelRect(new PixelSize(1920, 1040)), true);
             var screen2 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1366, 768)), new PixelRect(new PixelSize(1366, 728)), false);
@@ -446,6 +446,8 @@ namespace Avalonia.Controls.UnitTests
 
                 window.Show();
 
+                var windowSize = window.FrameSize ?? window.ClientSize;
+
                 var expectedBounds = new PixelRect(
                     (int)window.Margin.Left,
                     (int)window.Margin.Top,
@@ -454,10 +456,10 @@ namespace Avalonia.Controls.UnitTests
 
                 var expectedPosition = windowStartupLocation switch
                 {
-                    WindowStartupLocation.UpperLeftScreen => expectedBounds.TopLeft,
-                    WindowStartupLocation.UpperRightScreen => expectedBounds.TopRight - new PixelPoint((int)window.ClientSize.Width, 0),
-                    WindowStartupLocation.LowerRightScreen => expectedBounds.BottomRight - new PixelPoint((int)window.ClientSize.Width, (int)window.ClientSize.Height),
-                    WindowStartupLocation.LowerLeftScreen => expectedBounds.BottomLeft - new PixelPoint(0, (int)window.ClientSize.Height),
+                    WindowStartupLocation.TopLeftScreen => expectedBounds.TopLeft,
+                    WindowStartupLocation.TopRightScreen => expectedBounds.TopRight - new PixelPoint((int)windowSize.Width, 0),
+                    WindowStartupLocation.BottomRightScreen => expectedBounds.BottomRight - new PixelPoint((int)windowSize.Width, (int)windowSize.Height),
+                    WindowStartupLocation.BottomLeftScreen => expectedBounds.BottomLeft - new PixelPoint(0, (int)windowSize.Height),
                     _ => throw new NotImplementedException(),
                 };
 
