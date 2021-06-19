@@ -418,8 +418,12 @@ namespace Avalonia.Controls.UnitTests
             }
         }
 
-        [Fact]
-        public void Window_Should_Be_In_Upper_Left_Corner_When_WindowStartupLocation_Is_UpperLeftScreen()
+        [Theory]
+        [InlineData(WindowStartupLocation.UpperLeftScreen)]
+        [InlineData(WindowStartupLocation.UpperRightScreen)]
+        [InlineData(WindowStartupLocation.LowerRightScreen)]
+        [InlineData(WindowStartupLocation.LowerLeftScreen)]
+        public void Window_Should_Be_In_Corner_When_WindowStartupLocation_Is_Set(WindowStartupLocation windowStartupLocation)
         {
             var screen1 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1920, 1080)), new PixelRect(new PixelSize(1920, 1040)), true);
             var screen2 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1366, 768)), new PixelRect(new PixelSize(1366, 728)), false);
@@ -436,109 +440,26 @@ namespace Avalonia.Controls.UnitTests
             using (UnitTestApplication.Start(TestServices.StyledWindow))
             {
                 var window = new Window(windowImpl.Object);
-                window.WindowStartupLocation = WindowStartupLocation.UpperLeftScreen;
+                window.WindowStartupLocation = windowStartupLocation;
                 window.Position = new PixelPoint(60, 40);
-                window.Margin = new Thickness(10, 20);
+                window.Margin = new Thickness(10, 20, 15, 25);
 
                 window.Show();
 
-                var expectedPosition = new PixelPoint((int)window.Margin.Left, (int)window.Margin.Top);
-
-                Assert.Equal(window.Position, expectedPosition);
-            }
-        }
-
-        [Fact]
-        public void Window_Should_Be_In_Upper_Right_Corner_When_WindowStartupLocation_Is_UpperRightScreen()
-        {
-            var screen1 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1920, 1080)), new PixelRect(new PixelSize(1920, 1040)), true);
-            var screen2 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1366, 768)), new PixelRect(new PixelSize(1366, 728)), false);
-
-            var screens = new Mock<IScreenImpl>();
-            screens.Setup(x => x.AllScreens).Returns(new Screen[] { screen1.Object, screen2.Object });
-
-            var windowImpl = MockWindowingPlatform.CreateWindowMock();
-            windowImpl.Setup(x => x.ClientSize).Returns(new Size(800, 480));
-            windowImpl.Setup(x => x.DesktopScaling).Returns(1);
-            windowImpl.Setup(x => x.RenderScaling).Returns(1);
-            windowImpl.Setup(x => x.Screen).Returns(screens.Object);
-
-            using (UnitTestApplication.Start(TestServices.StyledWindow))
-            {
-                var window = new Window(windowImpl.Object);
-                window.WindowStartupLocation = WindowStartupLocation.UpperRightScreen;
-                window.Position = new PixelPoint(60, 40);
-                window.Margin = new Thickness(10, 20);
-
-                window.Show();
-
-                var expectedPosition = new PixelPoint(
-                    (int)(screen1.Object.WorkingArea.Size.Width - window.ClientSize.Width - window.Margin.Right),
-                    (int)window.Margin.Top);
-
-                Assert.Equal(window.Position, expectedPosition);
-            }
-        }
-
-        [Fact]
-        public void Window_Should_Be_In_Lower_Right_Corner_When_WindowStartupLocation_Is_LowerRightScreen()
-        {
-            var screen1 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1920, 1080)), new PixelRect(new PixelSize(1920, 1040)), true);
-            var screen2 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1366, 768)), new PixelRect(new PixelSize(1366, 728)), false);
-
-            var screens = new Mock<IScreenImpl>();
-            screens.Setup(x => x.AllScreens).Returns(new Screen[] { screen1.Object, screen2.Object });
-
-            var windowImpl = MockWindowingPlatform.CreateWindowMock();
-            windowImpl.Setup(x => x.ClientSize).Returns(new Size(800, 480));
-            windowImpl.Setup(x => x.DesktopScaling).Returns(1);
-            windowImpl.Setup(x => x.RenderScaling).Returns(1);
-            windowImpl.Setup(x => x.Screen).Returns(screens.Object);
-
-            using (UnitTestApplication.Start(TestServices.StyledWindow))
-            {
-                var window = new Window(windowImpl.Object);
-                window.WindowStartupLocation = WindowStartupLocation.LowerRightScreen;
-                window.Position = new PixelPoint(60, 40);
-                window.Margin = new Thickness(10, 20);
-
-                window.Show();
-
-                var expectedPosition = new PixelPoint(
-                    (int)(screen1.Object.WorkingArea.Size.Width - window.ClientSize.Width - window.Margin.Right),
-                    (int)(screen1.Object.WorkingArea.Size.Height - window.ClientSize.Height - window.Margin.Bottom));
-
-                Assert.Equal(window.Position, expectedPosition);
-            }
-        }
-
-        [Fact]
-        public void Window_Should_Be_In_Lower_Left_Corner_When_WindowStartupLocation_Is_LowerLeftScreen()
-        {
-            var screen1 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1920, 1080)), new PixelRect(new PixelSize(1920, 1040)), true);
-            var screen2 = new Mock<Screen>(1.0, new PixelRect(new PixelSize(1366, 768)), new PixelRect(new PixelSize(1366, 728)), false);
-
-            var screens = new Mock<IScreenImpl>();
-            screens.Setup(x => x.AllScreens).Returns(new Screen[] { screen1.Object, screen2.Object });
-
-            var windowImpl = MockWindowingPlatform.CreateWindowMock();
-            windowImpl.Setup(x => x.ClientSize).Returns(new Size(800, 480));
-            windowImpl.Setup(x => x.DesktopScaling).Returns(1);
-            windowImpl.Setup(x => x.RenderScaling).Returns(1);
-            windowImpl.Setup(x => x.Screen).Returns(screens.Object);
-
-            using (UnitTestApplication.Start(TestServices.StyledWindow))
-            {
-                var window = new Window(windowImpl.Object);
-                window.WindowStartupLocation = WindowStartupLocation.LowerLeftScreen;
-                window.Position = new PixelPoint(60, 40);
-                window.Margin = new Thickness(10, 20);
-
-                window.Show();
-
-                var expectedPosition = new PixelPoint(
+                var expectedBounds = new PixelRect(
                     (int)window.Margin.Left,
-                    (int)(screen1.Object.WorkingArea.Size.Height - window.ClientSize.Height - window.Margin.Bottom));
+                    (int)window.Margin.Top,
+                    (int)(screen1.Object.WorkingArea.Size.Width - window.Margin.Left - window.Margin.Right),
+                    (int)(screen1.Object.WorkingArea.Size.Height - window.Margin.Top - window.Margin.Bottom));
+
+                var expectedPosition = windowStartupLocation switch
+                {
+                    WindowStartupLocation.UpperLeftScreen => expectedBounds.TopLeft,
+                    WindowStartupLocation.UpperRightScreen => expectedBounds.TopRight - new PixelPoint((int)window.ClientSize.Width, 0),
+                    WindowStartupLocation.LowerRightScreen => expectedBounds.BottomRight - new PixelPoint((int)window.ClientSize.Width, (int)window.ClientSize.Height),
+                    WindowStartupLocation.LowerLeftScreen => expectedBounds.BottomLeft - new PixelPoint(0, (int)window.ClientSize.Height),
+                    _ => throw new NotImplementedException(),
+                };
 
                 Assert.Equal(window.Position, expectedPosition);
             }
