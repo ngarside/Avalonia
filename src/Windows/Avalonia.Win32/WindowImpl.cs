@@ -443,8 +443,7 @@ namespace Avalonia.Win32
             }
             set
             {
-                // Windows 10 adds a 7 pixel invisible border on the left/right/bottom of windows
-                // as a resize handle.
+                // Windows 10 adds a 7 pixel invisible border on the left/right/bottom of windows.
                 if (Win32Platform.WindowsVersion.Major >= 10)
                 {
                     value = new PixelPoint(value.X - (int)(7 * _scaling), value.Y);
