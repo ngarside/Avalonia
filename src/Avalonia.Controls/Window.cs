@@ -742,9 +742,9 @@ namespace Avalonia.Controls
                 Owner = owner;
                 owner.AddChild(this, true);
                 
-                SetWindowStartupLocation(owner.PlatformImpl);
-                
                 PlatformImpl?.Show(ShowActivated);
+
+                SetWindowStartupLocation(owner.PlatformImpl);
 
                 Renderer?.Start();
 
