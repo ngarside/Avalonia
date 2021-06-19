@@ -447,7 +447,7 @@ namespace Avalonia.Win32
                 // as a resize handle.
                 if (Win32Platform.WindowsVersion.Major >= 10)
                 {
-                    value = new PixelPoint(value.X - 7, value.Y);
+                    value = new PixelPoint(value.X - (int)(7 * _scaling), value.Y);
                 }
                 SetWindowPos(
                     Handle.Handle,
